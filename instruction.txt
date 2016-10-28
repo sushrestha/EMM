@@ -1,0 +1,59 @@
+
+
+# Instructions
+
+1. Create a project with no Activity - Xposed module
+	- create directory provided under app:  
+	- download XposedBridgeApi.jar and move into app/provided
+$ mkdir app/provided
+$ wget -O XposedBridgeApi-54.jar http://forum.xda-developers.com/attachment.php\?attachmentid\=2748878\&d\=1400342298
+$ mv XposedBridgeApi-54.jar app/provided/XposedBridgeApi-54.jar
+
+
+	- create a folder assets under app/src/main
+	- make init file
+$ mkdir app/src/main/assets
+$ echo "com.example.Tutorial" > app/src/main/assets/xposed_init	
+
+	- change in gradle 
+	provided files('provided/XposedBridgeApi-54.jar') under dependencies section
+
+	- AndroidManifest.xml under application
+	        <meta-data
+            android:name="xposedmoduleemm"
+            android:value="true" />
+
+        /* These will be reflected on Xposed Framework module enable/ disable section*/
+        <meta-data
+            android:name="xposeddescription"
+            android:value="A Xposed module for preventing and manipulating EMM features:" />
+
+        <meta-data
+            android:name="xposedminversion"
+            android:value="54" />
+
+      - XposedClass.java
+      updated the code.
+
+
+
+
+
+2. On the Device
+- Root the Device
+- Install XposedInstaller.apk
+$ wget -O XposedInstaller.apk http://dl-xda.xposed.info/modules/de.robv.android.xposed.installer_v33_36570c.apk
+$ ./adb install XposedInstaller.apk
+Inside the "Xposed Installer"
+Choose "Framework"
+Click through Warning
+Select "Install/Update"
+Reboot
+
+
+
+
+# useful links:
+https://www.packtpub.com/books/content/hacking-android-apps-using-xposed-framework
+https://www.nccgroup.trust/us/about-us/newsroom-and-events/blog/2015/september/code-injection-on-android/
+https://github.com/rovo89/XposedBridge/wiki/Development-tutorial
